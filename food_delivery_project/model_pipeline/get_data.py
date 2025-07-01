@@ -22,6 +22,3 @@ def get_data():
         logging.info("The Food_Delivery_Times.csv file has been successfully downloaded and saved.")
     except Exception as e:
         logging.error(f"An error occurred while copying the file: {e}")
-
-if __name__ == '__main__':
-    get_data()
