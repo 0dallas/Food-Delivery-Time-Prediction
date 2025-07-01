@@ -18,7 +18,7 @@ def load_data(filepath:str)-> pd.DataFrame:
     """
     try:
         df = pd.read_csv(filepath)
-        logging.info("Data uploaded successfully")
+        logging.info("Data loaded successfully")
         return df
     except Exception as e:
         logging.error(f"An error occurred while loading data: {e}")
