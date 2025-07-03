@@ -50,12 +50,12 @@ Checking unique values for categorical columns:
 
 ## 3. Analysis of Key Variables
 ### 3.1. Delivery_Time_min (Target Variable)
-![alt text](image.png)
+![alt text](plots/EDA/img1.png)
 - **Distribution**: The target variable Delivery_Time_min exhibits a right-skewed distribution, with the majority of delivery times concentrated between approximately 40 and 80 minutes. There's a tail extending towards higher delivery times, indicating some longer deliveries.
 - **Range**: Delivery times range from around 10 minutes up to approximately 150 minutes, which is a reasonable spread for food delivery.
 
 ### 3.2. Numerical Variables
-![alt text](image-1.png)
+![alt text](plots/EDA/img2.png)
 - **Distance_km**: The distribution of `Distance_km` appears relatively uniform across its range (0 to 20 km), with slight peaks around 2-5 km and 10-12 km. This suggests deliveries are spread across various distances.
 
 - **Preparation_Time_min**: `Preparation_Time_min` shows a somewhat bimodal distribution, with peaks around 10-12 minutes and 25-28 minutes. This might indicate different preparation efficiencies or types of orders/restaurants.
@@ -63,14 +63,14 @@ Checking unique values for categorical columns:
 - **Courier_Experience_yrs**: `Courier_Experience_yrs` also appears relatively uniformly distributed across experience levels (0 to 9 years), suggesting a mix of new and experienced couriers.
 
 ### 3.3. Categorical Variables
-![alt text](image-2.png)
+![alt text](plots/EDA/img3.png)
 - **Distributions**:
     - `Weather`: 'Clear' is the most frequent weather condition, followed by 'Rainy' and 'Foggy', with 'Windy' and 'Snowy' being less common.
     - `Traffic_Level`: 'Low' and 'Medium' traffic levels are more frequent than 'High' traffic.
     - `Time_of_Day`: 'Evening' and 'Morning' appear to be the most frequent times of delivery, with 'Afternoon' and 'Night' having similar, slightly lower frequencies.
     - `Vehicle_Type`: 'Bike' is the most used vehicle type, followed by 'Scooter' and 'Car', indicating a preference for more agile vehicles, possibly due to urban environments.
 
-![alt text](image-3.png)
+![alt text](plots/EDA/img4.png)
 - **Impact on `Delivery_Time_min`**:
     - `Weather`: Box plots clearly show that 'Rainy' and especially 'Snowy' conditions lead to significantly higher median delivery times and wider spreads (more variability) compared to 'Clear' or 'Windy' days. 'Foggy' also tends to increase delivery times.
     - `Traffic_Level`: As expected, Delivery_Time_min steadily increases with Traffic_Level. 'High' traffic levels result in considerably longer median delivery times, indicating greater variability in delivery durations.

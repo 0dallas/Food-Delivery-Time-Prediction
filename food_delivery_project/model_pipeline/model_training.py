@@ -105,11 +105,18 @@ def train_model(X_train_processed, y_train):
     for model_name, mae in best_model_scores.items():
         print(f"  {model_name}: {mae:.4f}")
 
-    print("Details best model")
+    # print("Details best model")
     best_model_name = study.best_params['model']
-    print(f"  Model: {best_model_name}")
-    print(f"  MAE: {study.best_value:.4f}")
-    print(f"  Hyperparameters: {study.best_params}")
+    # print(f"  Model: {best_model_name}")
+    # print(f"  MAE: {study.best_value:.4f}")
+    # print(f"  Hyperparameters: {study.best_params}")
+
+    logging.info(f'''
+    Details best model
+      Model: {best_model_name}
+      MAE: {study.best_value:.4f}
+      Hyperparameters: {study.best_params}
+    ''')
 
     final_model = build_best_model(best_model_name, study.best_params)
     final_model.fit(X_train_processed, y_train)
