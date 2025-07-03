@@ -1,3 +1,6 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 from lightgbm import LGBMRegressor
 from xgboost import XGBRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
@@ -101,27 +104,58 @@ def train_model(X_train_processed, y_train):
     study.optimize(objective_with_data, n_trials=50)
     logging.info("Training completed")
 
-    print("Best MAE by model")
-    for model_name, mae in best_model_scores.items():
-        print(f"  {model_name}: {mae:.4f}")
 
-    # print("Details best model")
     best_model_name = study.best_params['model']
-    # print(f"  Model: {best_model_name}")
-    # print(f"  MAE: {study.best_value:.4f}")
-    # print(f"  Hyperparameters: {study.best_params}")
-
-    logging.info(f'''
-    Details best model
-      Model: {best_model_name}
-      MAE: {study.best_value:.4f}
-      Hyperparameters: {study.best_params}
-    ''')
-
     final_model = build_best_model(best_model_name, study.best_params)
     final_model.fit(X_train_processed, y_train)
 
     joblib.dump(final_model, os.path.join(current_script_directory,"..","models","model.pkl"))
     logging.info("Model saved successfully")
 
+    
+    model_metrics = []
+    for model_name, params in best_model_params.items():
+        model = build_best_model(model_name, params)
+        cv = KFold(n_splits=5, shuffle=True, random_state=42)
+
+        mae = -cross_val_score(model, X_train_processed, y_train, cv=cv,
+                               scoring="neg_mean_absolute_error").mean()
+        rmse = np.sqrt(-cross_val_score(model, X_train_processed, y_train, cv=cv,
+                                        scoring="neg_mean_squared_error").mean())
+        r2 = cross_val_score(model, X_train_processed, y_train, cv=cv,
+                             scoring="r2").mean()
+        
+        model_metrics.append({
+            "model": model_name,
+            "mae": mae,
+            "rmse": rmse,
+            "r2": r2
+        })
+
+    ## Create Metrics DataFrame
+    results_df = pd.DataFrame(model_metrics)
+    results_df.sort_values("mae", inplace=True)
+
+    ## Save CSV
+    csv_path = os.path.join(current_script_directory, "..", "reports", "metrics" ,"model_metrics.csv")
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+    results_df.to_csv(csv_path, index=False)
+    logging.info(f"Comparative metrics saved")
+
+    ## Create comparison charts
+    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+    results_df.plot(x="model", y="mae", kind="bar", ax=axes[0], title="MAE by Model", legend=False)
+    results_df.plot(x="model", y="rmse", kind="bar", ax=axes[1], title="RMSE by Model", legend=False)
+    results_df.plot(x="model", y="r2", kind="bar", ax=axes[2], title="R2 Score by Model", legend=False)
+    
+    for ax in axes:
+        ax.set_xlabel("")
+        ax.set_ylabel("Score")
+        ax.tick_params(axis='x', rotation=45)
+
+    plt.tight_layout()
+    fig_path = os.path.join(current_script_directory, "..", "reports","plots","Training", "model_comparison.png")
+    plt.savefig(fig_path)
+    logging.info(f"Model comparison plots saved")
+   
     return final_model
