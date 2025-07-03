@@ -158,4 +158,4 @@ def train_model(X_train_processed, y_train):
     plt.savefig(fig_path)
     logging.info(f"Model comparison plots saved")
    
-    return final_model
+    return final_model, best_model_name
