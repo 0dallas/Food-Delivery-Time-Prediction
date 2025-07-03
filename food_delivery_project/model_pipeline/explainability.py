@@ -9,6 +9,8 @@ import os
 logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+logging.getLogger("shap").disabled = True
+
 current_script_directory = os.path.dirname(os.path.abspath(__file__))
 
 from sklearn.inspection import permutation_importance
