@@ -35,7 +35,7 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("Application shutdown cleanup complete.")
 
-# --- FastAPI App ---
+## --- FastAPI App ---
 app = FastAPI(
     title="Delivery Time Prediction API",
     description="Predicts food delivery time based on features.",
@@ -43,7 +43,7 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# --- Endpoints ---
+## --- Endpoints ---
 @app.get("/health", response_model=dict)
 async def health_check():
     return {"status": "ok", "message": "API is running and model is loaded."}
