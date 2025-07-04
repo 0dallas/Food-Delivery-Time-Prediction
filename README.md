@@ -23,7 +23,7 @@ The project encompasses a complete machine learning lifecycle, from initial data
 - **Deployment-Ready API**: A Dockerized FastAPI service for real-time inference.
 
 ## Technologies Used
-- Python 3.9+
+- Python 3.10+
 - Data Handling: Pandas, NumPy
 - Machine Learning: Scikit-learn, Optuna (for hyperparameter tuning), SHAP
 - Visualization: Matplotlib, Seaborn
