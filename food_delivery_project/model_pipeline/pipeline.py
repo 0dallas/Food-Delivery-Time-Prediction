@@ -7,7 +7,7 @@ def main():
     df = load_data("../data/Food_Delivery_Times.csv")
     X_train, X_test, y_train, y_test = preprocess_data(df)
     model, model_name = train_model(X_train,y_train)
-    get_feature_importance(model,model_name,X_train,y_train,shap_option=True)
+    get_feature_importance(model,model_name,X_train,y_train,shap_option=False)
 
 if __name__ == "__main__":
     main()
