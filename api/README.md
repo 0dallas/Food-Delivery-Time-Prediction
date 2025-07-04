@@ -52,3 +52,10 @@ docker run -p 8000:8000 delivery-prediction-api
             "predicted_delivery_time_min": 45.75
         }
     ```
+
+## Live Demo (Deployed Endpoint)
+You can test the deployed API directly at the following URL:
+- **Base URL**: https://food-delivery-time-prediction-rptz.onrender.com/predict_delivery_time
+
+Access the interactive API documentation (Swagger UI) for this deployed endpoint at:
+- **Swagger UI**: https://food-delivery-time-prediction-rptz.onrender.com/docs
